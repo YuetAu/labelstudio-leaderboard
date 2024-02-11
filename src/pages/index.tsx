@@ -1,5 +1,5 @@
 import { use, useEffect, useState } from "react";
-import { Box, Flex, Image, Table, Tbody, Td, Text, Th, Thead, Tooltip, Tr } from "@chakra-ui/react";
+import { Box, Flex, Image, Spinner, Table, Tbody, Td, Text, Th, Thead, Tooltip, Tr, useToast } from "@chakra-ui/react";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import { customNickname, exceptionalCase, teamMember } from "@/props/teamMember";
 import { IoMdInformationCircleOutline } from "react-icons/io";
@@ -11,6 +11,8 @@ type User = {
 }
 
 export default function Home() {
+
+    const toast = useToast();
 
     const [data, setData] = useState<User[]>([]);
     const columnHelper = createColumnHelper<User>();
@@ -44,6 +46,7 @@ export default function Home() {
     const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() })
 
     const [isGoingToFetch, setIsGoingToFetch] = useState(true);
+    const [lastUpdate, setLastUpdate] = useState(new Date());
 
     const procressData = (data: any) => {
         let tmpArr: any = [];
@@ -76,6 +79,13 @@ export default function Home() {
         });
         tmpArr.sort((a: any, b: any) => b.score - a.score);
         setData(tmpArr);
+        toast({
+            title: "Leaderboard Updated",
+            description: "Leaderboard has been updated",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+        });
     }
 
     useEffect(() => {
@@ -85,6 +95,12 @@ export default function Home() {
                 .then(data => {
                     procressData(data);
                     setIsGoingToFetch(false);
+                })
+                .then(() => {
+                    setLastUpdate(new Date());
+                    setTimeout(() => {
+                        setIsGoingToFetch(true);
+                    }, 65000+Math.random()*1000);
                 });
         }
     }, [isGoingToFetch])
@@ -105,48 +121,64 @@ export default function Home() {
                         <Image src="/labelstudio.png" h="12%" mx="auto" />
                         <Text fontSize={"xx-large"} textAlign={"center"}>Leaderboard</Text>
                         
-
-                        <Table mt={"1rem"}>
-                            <Thead>
-                                {table.getHeaderGroups().map(headerGroup => (
-                                    <Tr key={headerGroup.id}>
-                                        {headerGroup.headers.map(header => (
-                                            <Th key={header.id} width={header.getSize()}>
-                                                {header.isPlaceholder
-                                                    ? null
-                                                    : flexRender(
-                                                        header.column.columnDef.header,
-                                                        header.getContext()
-                                                    )}
-                                            </Th>
+                        {
+                            isGoingToFetch && data.length === 0
+                            ? (<Spinner
+                                thickness='4px'
+                                speed='0.65s'
+                                emptyColor='gray.200'
+                                color='blue.500'
+                                size='xl'
+                                mx="auto"
+                                display="flex"
+                                flexDirection="column"
+                                justifyContent="center"
+                            />)
+                            :
+                            (<>
+                                <Table mt={"1rem"}>
+                                    <Thead>
+                                        {table.getHeaderGroups().map(headerGroup => (
+                                            <Tr key={headerGroup.id}>
+                                                {headerGroup.headers.map(header => (
+                                                    <Th key={header.id} width={header.getSize()}>
+                                                        {header.isPlaceholder
+                                                            ? null
+                                                            : flexRender(
+                                                                header.column.columnDef.header,
+                                                                header.getContext()
+                                                            )}
+                                                    </Th>
+                                                ))}
+                                            </Tr>
                                         ))}
-                                    </Tr>
-                                ))}
-                            </Thead>
-                        </Table>
-                        <div
-                            style={{
-                                overflowX: "hidden",
-                                overflowY: "scroll",
-                                height: "65%",
-                                scrollbarWidth: "none",
-                                scrollbarColor: "transparent transparent",
-                            }}
-                        >
-                        <Table>
-                            <Tbody>
-                                {table.getRowModel().rows.map(row => (
-                                    <Tr key={row.id}>
-                                        {row.getVisibleCells().map(cell => (
-                                            <Td key={cell.id}>
-                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                            </Td>
+                                    </Thead>
+                                </Table>
+                                <div
+                                    style={{
+                                        overflowX: "hidden",
+                                        overflowY: "scroll",
+                                        height: "65%",
+                                        scrollbarWidth: "none",
+                                        scrollbarColor: "transparent transparent",
+                                    }}
+                                >
+                                <Table>
+                                    <Tbody>
+                                        {table.getRowModel().rows.map(row => (
+                                            <Tr key={row.id}>
+                                                {row.getVisibleCells().map(cell => (
+                                                    <Td key={cell.id}>
+                                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                                    </Td>
+                                                ))}
+                                            </Tr>
                                         ))}
-                                    </Tr>
-                                ))}
-                            </Tbody>
-                        </Table>
-                        </div>
+                                    </Tbody>
+                                </Table>
+                                </div>
+                            </>)
+                        }
                 </Box>
         </Box>
     </>

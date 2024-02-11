@@ -1,7 +1,4 @@
 export const customNickname = {
-    "yauyeungaa": "HW Sam",
-    "sam07@live.hk": "HW Sam",
-
 }
 
 export const teamMember = {
