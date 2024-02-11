@@ -1,4 +1,5 @@
 export const customNickname = {
+    "chlambp": "我代表MECH全體同事過來掛個名",
 }
 
 export const teamMember = {
