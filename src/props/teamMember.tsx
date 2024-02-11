@@ -10,7 +10,7 @@ export const teamMember = {
     "nktsangaa": "MECH Ken",
     "kschungad": "MECH Casper",
     "lyychen": "MECH Leo",
-    "chlambp": "MECH Chris",
+    "chlambp": "我代表MECH全體同事過來掛個名",
     "yludk": "MECH Lucy",
     "tkzhang": "MECH Moses",
     "kklian": "MECH King",
