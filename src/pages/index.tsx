@@ -48,12 +48,11 @@ export default function Home() {
     const [isGoingToFetch, setIsGoingToFetch] = useState(true);
     const [nextUpdate, setNextUpdate] = useState(Date.now());
 
-    const procressData = (data: any) => {
+    const processData = (data: any) => {
         let tmpArr: any = [];
         Object.keys(data).forEach(key => {
             let tmpName = key
             let nickname = undefined
-            console.log(key)
             const nameArr = key.split(" ");
             if (nameArr.length == 2) {
                 tmpName = nameArr[0];
@@ -100,7 +99,7 @@ export default function Home() {
             fetch("https://leaderboard-api.ustrobocon.win/top_annotators")
                 .then(response => response.json())
                 .then(data => {
-                    procressData(data);
+                    processData(data);
                     setIsGoingToFetch(false);
                 })
                 .then(() => {
