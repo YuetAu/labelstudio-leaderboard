@@ -46,7 +46,7 @@ export default function Home() {
     const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() })
 
     const [isGoingToFetch, setIsGoingToFetch] = useState(true);
-    const [lastUpdate, setLastUpdate] = useState(new Date());
+    const [nextUpdate, setNextUpdate] = useState(Date.now());
 
     const procressData = (data: any) => {
         let tmpArr: any = [];
@@ -97,10 +97,11 @@ export default function Home() {
                     setIsGoingToFetch(false);
                 })
                 .then(() => {
-                    setLastUpdate(new Date());
+                    const delay = 65000+Math.random()*1000
                     setTimeout(() => {
                         setIsGoingToFetch(true);
-                    }, 65000+Math.random()*1000);
+                    }, delay);
+                    setNextUpdate(Date.now() + delay);
                 });
         }
     }, [isGoingToFetch])
@@ -114,8 +115,27 @@ export default function Home() {
     }, []);
 
 
+    const [currentUnixTime, setCurrentUnixTime] = useState(Date.now());
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentUnixTime(Date.now());
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+
     return (
     <>
+        <Box sx={{
+            position: "absolute",
+            top: "0.5rem",
+            left: "0.5rem",
+            zIndex: "10",
+        }}>
+            <Flex>
+                <Spinner /><Text mt={"0.1rem"} ml={"0.5rem"}>{nextUpdate - currentUnixTime > 1000 ? "Next update in " + Math.floor((nextUpdate - currentUnixTime)/1000) + " seconds" : "Updating..."}</Text>
+            </Flex>
+        </Box>
         <Box display="flex" justifyContent="center" bg="gray.400" h={windowHeight}>
                 <Box borderRadius="md" w="80%" maxWidth={"30rem"} h={"80%"} maxHeight={"70rem"} boxShadow="0 0 10px rgba(0, 0, 0, 0.2)" mt={"4rem"} pt={"1rem"} bg="white" overflow={"hidden"}>
                         <Image src="/labelstudio.png" h="12%" mx="auto" />
