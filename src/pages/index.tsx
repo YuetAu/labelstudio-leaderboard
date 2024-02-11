@@ -72,6 +72,8 @@ export default function Home() {
                 if (Object.keys(customNickname).includes(itsc)) {
                     nickname = customNickname[itsc as keyof typeof customNickname];
                 }
+            } else if (Object.keys(customNickname).includes(key)) {
+                nickname = customNickname[key as keyof typeof customNickname];
             }
 
             let tmpObj = { username: tmpName, score: data[key], nickname: nickname || undefined };
