@@ -27,7 +27,7 @@ export default function Home() {
                     return (<Flex>
                     {info.row.original.nickname}
                     <Tooltip label={info.getValue()} placement="right">
-                        <span style={{marginLeft: "0.5rem"}}><IoMdInformationCircleOutline /></span>
+                        <span style={{marginLeft: "0.5rem", marginTop: "0.2rem"}}><IoMdInformationCircleOutline /></span>
                     </Tooltip>
                     </Flex>);
                 }
