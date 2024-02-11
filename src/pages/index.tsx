@@ -53,6 +53,7 @@ export default function Home() {
         Object.keys(data).forEach(key => {
             let tmpName = key
             let nickname = undefined
+            console.log(key)
             const nameArr = key.split(" ");
             if (nameArr.length == 2) {
                 tmpName = nameArr[0];
@@ -72,8 +73,12 @@ export default function Home() {
                 if (Object.keys(customNickname).includes(itsc)) {
                     nickname = customNickname[itsc as keyof typeof customNickname];
                 }
-            } else if (Object.keys(customNickname).includes(key)) {
-                nickname = customNickname[key as keyof typeof customNickname];
+            } else if (Object.keys(exceptionalCase).includes(key)) {
+                tmpName = exceptionalCase[key as keyof typeof exceptionalCase];
+
+                if (Object.keys(customNickname).includes(key)) {
+                    nickname = customNickname[key as keyof typeof customNickname];
+                }
             }
 
             let tmpObj = { username: tmpName, score: data[key], nickname: nickname || undefined };
