@@ -1,6 +1,7 @@
 import { use, useEffect, useState } from "react";
 import { Box, Image, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
+import { exceptionalCase, teamMember } from "@/props/teamMember";
 
 type User = {
     username: string,
@@ -35,9 +36,26 @@ export default function Home() {
     const procressData = (data: any) => {
         let tmpArr: any = [];
         Object.keys(data).forEach(key => {
-            let tmpObj = { username: key, score: data[key] };
+            let tmpName = key
+            const nameArr = key.split(" ");
+            if (nameArr.length == 2) {
+                tmpName = nameArr[0];
+                if (Object.keys(exceptionalCase).includes(nameArr[1])) {
+                    tmpName = exceptionalCase[nameArr[1] as keyof typeof exceptionalCase];
+                }
+            } 
+
+            else if (key.includes("@connect.ust.hk")) {
+                const itsc = key.split("@")[0];
+                if (Object.keys(teamMember).includes(itsc)) {
+                    tmpName = teamMember[itsc as keyof typeof teamMember];
+                }
+            }
+
+            let tmpObj = { username: tmpName, score: data[key] };
             tmpArr.push(tmpObj);
         });
+        tmpArr.sort((a: any, b: any) => b.score - a.score);
         setData(tmpArr);
     }
 
@@ -52,11 +70,19 @@ export default function Home() {
         }
     }, [isGoingToFetch])
 
+    const [windowHeight, setWindowHeight] = useState(0);
+    useEffect(() => {
+        setWindowHeight(window.innerHeight);
+        window.addEventListener('resize', () => {
+            setWindowHeight(window.innerHeight);
+        });
+    }, []);
+
 
     return (
     <>
-        <Box display="flex" justifyContent="center" bg="gray.400" h="100vh">
-                <Box borderRadius="md" w="80%" maxWidth={"30rem"} h="80vh" maxHeight={"50rem"} boxShadow="0 0 10px rgba(0, 0, 0, 0.2)" mt={"4rem"} pt={"1rem"} bg="white" overflow={"hidden"}>
+        <Box display="flex" justifyContent="center" bg="gray.400" h={windowHeight}>
+                <Box borderRadius="md" w="80%" maxWidth={"30rem"} h={"80%"} maxHeight={"70rem"} boxShadow="0 0 10px rgba(0, 0, 0, 0.2)" mt={"4rem"} pt={"1rem"} bg="white" overflow={"hidden"}>
                         <Image src="/labelstudio.png" h="12%" mx="auto" />
                         <Text fontSize={"xx-large"} textAlign={"center"}>Leaderboard</Text>
                         
@@ -81,8 +107,9 @@ export default function Home() {
                         </Table>
                         <div
                             style={{
+                                overflowX: "hidden",
                                 overflowY: "scroll",
-                                height: "54vh",
+                                height: "65%",
                                 scrollbarWidth: "none",
                                 scrollbarColor: "transparent transparent",
                             }}
