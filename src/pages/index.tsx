@@ -1,10 +1,12 @@
 import { use, useEffect, useState } from "react";
-import { Box, Image, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Flex, Image, Table, Tbody, Td, Text, Th, Thead, Tooltip, Tr } from "@chakra-ui/react";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
-import { exceptionalCase, teamMember } from "@/props/teamMember";
+import { customNickname, exceptionalCase, teamMember } from "@/props/teamMember";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 type User = {
     username: string,
+    nickname?: string,
     score: number,
 }
 
@@ -16,7 +18,18 @@ export default function Home() {
     const columns = [
         columnHelper.accessor('username', {
             header: 'Name',
-            cell: info => info.getValue(),
+            cell: info => {
+                if (info.row.original.nickname === undefined) {
+                    return info.getValue();
+                } else {
+                    return (<Flex>
+                    {info.row.original.nickname}
+                    <Tooltip label={info.getValue()} placement="right">
+                        <span style={{marginLeft: "0.5rem"}}><IoMdInformationCircleOutline /></span>
+                    </Tooltip>
+                    </Flex>);
+                }
+            },
             footer: props => props.column.id,
             size: 240,
         }),
@@ -30,29 +43,35 @@ export default function Home() {
 
     const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() })
 
-
     const [isGoingToFetch, setIsGoingToFetch] = useState(true);
 
     const procressData = (data: any) => {
         let tmpArr: any = [];
         Object.keys(data).forEach(key => {
             let tmpName = key
+            let nickname = undefined
             const nameArr = key.split(" ");
             if (nameArr.length == 2) {
                 tmpName = nameArr[0];
                 if (Object.keys(exceptionalCase).includes(nameArr[1])) {
                     tmpName = exceptionalCase[nameArr[1] as keyof typeof exceptionalCase];
                 }
-            } 
 
-            else if (key.includes("@connect.ust.hk")) {
+                if (Object.keys(customNickname).includes(nameArr[1])) {
+                    nickname = customNickname[nameArr[1] as keyof typeof customNickname];
+                }
+            } else if (key.includes("@connect.ust.hk")) {
                 const itsc = key.split("@")[0];
                 if (Object.keys(teamMember).includes(itsc)) {
                     tmpName = teamMember[itsc as keyof typeof teamMember];
                 }
+
+                if (Object.keys(customNickname).includes(itsc)) {
+                    nickname = customNickname[itsc as keyof typeof customNickname];
+                }
             }
 
-            let tmpObj = { username: tmpName, score: data[key] };
+            let tmpObj = { username: tmpName, score: data[key], nickname: nickname || undefined };
             tmpArr.push(tmpObj);
         });
         tmpArr.sort((a: any, b: any) => b.score - a.score);
