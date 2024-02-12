@@ -49,5 +49,6 @@ export const teamMember = {
 export const exceptionalCase = {
     "tr246135@gmail.com": "SW Starfall",
     "sam07@live.hk": "HW Sam",
-    "alexchan815@gmail.com": "SW Chalex"
+    "alexchan815@gmail.com": "SW Chalex",
+    "jerryhmli2015@gmail.com": "SW Jerry",
 }
