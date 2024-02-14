@@ -7,6 +7,7 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 type User = {
     username: string,
     nickname?: string,
+    email: string,
     score: number,
 }
 
@@ -21,16 +22,12 @@ export default function Home() {
         columnHelper.accessor('username', {
             header: 'Name',
             cell: info => {
-                if (info.row.original.nickname === undefined) {
-                    return info.getValue();
-                } else {
                     return (<Flex>
-                    {info.row.original.nickname}
-                    <Tooltip label={info.getValue()} placement="right">
+                    {(info.row.original.nickname || info.getValue())}
+                    <Tooltip label={(info.row.original.nickname ? info.getValue() + " " : "") + info.row.original.email} placement="right">
                         <span style={{marginLeft: "0.5rem", marginTop: "0.2rem"}}><IoMdInformationCircleOutline /></span>
                     </Tooltip>
                     </Flex>);
-                }
             },
             footer: props => props.column.id,
             size: 240,
@@ -53,9 +50,11 @@ export default function Home() {
         Object.keys(data).forEach(key => {
             let tmpName = key
             let nickname = undefined
+            let tmpEmail = key
             const nameArr = key.split(" ");
             if (nameArr.length == 2) {
                 tmpName = nameArr[0];
+                tmpEmail = nameArr[1];
                 if (Object.keys(exceptionalCase).includes(nameArr[1])) {
                     tmpName = exceptionalCase[nameArr[1] as keyof typeof exceptionalCase];
                 }
@@ -80,7 +79,7 @@ export default function Home() {
                 }
             }
 
-            let tmpObj = { username: tmpName, score: data[key], nickname: nickname || undefined };
+            let tmpObj = { username: tmpName, score: data[key], nickname: nickname || undefined, email: tmpEmail };
             tmpArr.push(tmpObj);
         });
         tmpArr.sort((a: any, b: any) => b.score - a.score);
