@@ -145,20 +145,18 @@ export default function Home() {
     }, [])
 
 
-    const triggerSound = () => {
-        const random = Math.random();
-        if (random < 0.05) {
-            fuckUDunPlay.play();
-        } else if (random < 0.1) {
-            giveMePoints.play();
-        } else if (random < 0.15) {
-            isAnAccident.play();
-        } else if (random < 0.2) {
-            motherfucker.play();
-        } else if (random < 0.25) {
-            sorryXi.play();
-        } else if (random < 0.3) {
-            xiTea.play();
+    const triggerSound = (nickname: string) => {
+        if (nickname == "@realmarco.2004") {
+            const random = Math.random();
+            if (random < 0.3) {
+                fuckUDunPlay.play();
+            } else if (random < 0.6) {
+                isAnAccident.play();
+            } else if (random < 0.9) {
+                motherfucker.play();
+            } else {
+                xiTea.play();
+            }
         }
     }
 
@@ -225,7 +223,7 @@ export default function Home() {
                                 <Table>
                                     <Tbody>
                                         {table.getRowModel().rows.map(row => (
-                                            <Tr key={row.id}>
+                                            <Tr key={row.id} onClick={()=>{triggerSound(row.original.nickname);}}>
                                                 {row.getVisibleCells().map(cell => (
                                                     <Td key={cell.id}>
                                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
