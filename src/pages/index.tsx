@@ -223,7 +223,7 @@ export default function Home() {
                                 <Table>
                                     <Tbody>
                                         {table.getRowModel().rows.map(row => (
-                                            <Tr key={row.id} onClick={()=>{triggerSound(row.original.nickname);}}>
+                                            <Tr key={row.id} onClick={()=>{triggerSound(row.original.nickname || "");}}>
                                                 {row.getVisibleCells().map(cell => (
                                                     <Td key={cell.id}>
                                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
