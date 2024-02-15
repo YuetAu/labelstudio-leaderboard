@@ -147,23 +147,17 @@ export default function Home() {
 
     const triggerSound = () => {
         const random = Math.random();
-        if (random < 0.05) {
-            fuckUDunPlay.currentTime=0;
+        if (random < 0.16) {
             fuckUDunPlay.play();
-        } else if (random < 0.1) {
-            giveMePoints.currentTime=0;
+        } else if (random < 0.32) {
             giveMePoints.play();
-        } else if (random < 0.15) {
-            isAnAccident.currentTime=0;
+        } else if (random < 0.48) {
             isAnAccident.play();
-        } else if (random < 0.2) {
-            motherfucker.currentTime=0;
+        } else if (random < 0.64) {
             motherfucker.play();
-        } else if (random < 0.25) {
-            sorryXi.currentTime=0;
+        } else if (random < 0.8) {
             sorryXi.play();
-        } else if (random < 0.3) {
-            xiTea.currentTime=0;
+        } else {
             xiTea.play();
         }
     }
