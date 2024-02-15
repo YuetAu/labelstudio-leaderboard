@@ -137,6 +137,7 @@ export default function Home() {
     const [motherfucker, setMotherfucker] = useState<any>(null);
     const [sorryXi, setSorryXi] = useState<any>(null);
     const [xiTea, setXiTea] = useState<any>(null);
+    const [woodenFish, setWoodenFish] = useState<any>(null);
     useEffect(() => {
         setFuckUDunPlay(new Audio("/sounds/FuckUDunPlay.mp3"));
         setGiveMePoints(new Audio("/sounds/GiveMePoints.mp3"));
@@ -144,27 +145,43 @@ export default function Home() {
         setMotherfucker(new Audio("/sounds/Motherfucker.mp3"));
         setSorryXi(new Audio("/sounds/SorryXi.mp3"));
         setXiTea(new Audio("/sounds/XiTea.mp3"));
+        setWoodenFish(new Audio("/sounds/WoodenFish.mp3"));
     }, [])
 
 
     const triggerSound = (nickname: string) => {
-        if (nickname == "@realmarco.2004") {
-            setClickCount((prev)=>{
-                if (prev >= 10) {
-                    window.location.href = "https://realmarco-2004.labelstudio-leaderboard.pages.dev/";
+        switch (nickname) {
+            case "SW Marco":
+                setClickCount((prev)=>{
+                    if (prev >= 10) {
+                        window.location.href = "https://realmarco-2004.labelstudio-leaderboard.pages.dev/";
+                        return 0;
+                    }
+                    return prev+1;
+                });
+                const random = Math.random();
+                if (random < 0.3) {
+                    fuckUDunPlay.play();
+                } else if (random < 0.6) {
+                    isAnAccident.play();
+                } else if (random < 0.9) {
+                    motherfucker.play();
+                } else {
+                    xiTea.play();
                 }
-                return prev+1;
-            });
-            const random = Math.random();
-            if (random < 0.3) {
-                fuckUDunPlay.play();
-            } else if (random < 0.6) {
-                isAnAccident.play();
-            } else if (random < 0.9) {
-                motherfucker.play();
-            } else {
-                xiTea.play();
-            }
+                break;
+            case "SW CEO Henry":
+                woodenFish.play();
+                break;
+        }
+    }
+
+    const colorChange = (nickname: string) => {
+        switch (nickname) {
+            case "SW Marco":
+                return `rgb(${clickCount * (255 / 10)}, 0, 0)`;
+            default:
+                return "black";
         }
     }
 
@@ -231,7 +248,15 @@ export default function Home() {
                                 <Table>
                                     <Tbody>
                                         {table.getRowModel().rows.map(row => (
-                                            <Tr key={row.id} onClick={()=>{triggerSound(row.original.nickname || "");}}>
+                                            <Tr
+                                                key={row.id}
+                                                onClick={() => {
+                                                    triggerSound(row.original.username || "");
+                                                }}
+                                                sx={{
+                                                    textColor: colorChange(row.original.username || "")
+                                                }}
+                                            >
                                                 {row.getVisibleCells().map(cell => (
                                                     <Td key={cell.id}>
                                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
