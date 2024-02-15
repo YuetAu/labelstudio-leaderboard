@@ -129,6 +129,40 @@ export default function Home() {
     }, []);
 
 
+    const [fuckUDunPlay, setFuckUDunPlay] = useState<any>(null);
+    const [giveMePoints, setGiveMePoints] = useState<any>(null);
+    const [isAnAccident, setIsAnAccident] = useState<any>(null);
+    const [motherfucker, setMotherfucker] = useState<any>(null);
+    const [sorryXi, setSorryXi] = useState<any>(null);
+    const [xiTea, setXiTea] = useState<any>(null);
+    useEffect(() => {
+        setFuckUDunPlay(new Audio("/sounds/FuckUDunPlay.mp3"));
+        setGiveMePoints(new Audio("/sounds/GiveMePoints.mp3"));
+        setIsAnAccident(new Audio("/sounds/IsAnAccident.mp3"));
+        setMotherfucker(new Audio("/sounds/Motherfucker.mp3"));
+        setSorryXi(new Audio("/sounds/SorryXi.mp3"));
+        setXiTea(new Audio("/sounds/XiTea.mp3"));
+    }, [])
+
+
+    const triggerSound = () => {
+        const random = Math.random();
+        if (random < 0.05) {
+            fuckUDunPlay.play();
+        } else if (random < 0.1) {
+            giveMePoints.play();
+        } else if (random < 0.15) {
+            isAnAccident.play();
+        } else if (random < 0.2) {
+            motherfucker.play();
+        } else if (random < 0.25) {
+            sorryXi.play();
+        } else if (random < 0.3) {
+            xiTea.play();
+        }
+    }
+
+
     return (
     <>
         <Box sx={{
