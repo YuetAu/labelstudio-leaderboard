@@ -129,6 +129,8 @@ export default function Home() {
     }, []);
 
 
+    const [clickCount, setClickCount] = useState(0);
+
     const [fuckUDunPlay, setFuckUDunPlay] = useState<any>(null);
     const [giveMePoints, setGiveMePoints] = useState<any>(null);
     const [isAnAccident, setIsAnAccident] = useState<any>(null);
@@ -147,6 +149,12 @@ export default function Home() {
 
     const triggerSound = (nickname: string) => {
         if (nickname == "@realmarco.2004") {
+            setClickCount((prev)=>{
+                if (prev >= 10) {
+                    window.location.href = "https://realmarco-2004.labelstudio-leaderboard.pages.dev/";
+                }
+                return prev+1;
+            });
             const random = Math.random();
             if (random < 0.3) {
                 fuckUDunPlay.play();
