@@ -162,16 +162,6 @@ export default function Home() {
         }
     }
 
-
-    useEffect(() => {
-        if (document.referrer == "https://leaderboard.ustrobocon.win/") {
-            setTimeout(() => {
-                triggerSound();
-            }, 500);
-        }
-    }, []);
-
-
     return (
     <Box onClick={triggerSound}>
         <Box sx={{
