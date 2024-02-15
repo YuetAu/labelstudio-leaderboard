@@ -138,6 +138,9 @@ export default function Home() {
     const [sorryXi, setSorryXi] = useState<any>(null);
     const [xiTea, setXiTea] = useState<any>(null);
     const [woodenFish, setWoodenFish] = useState<any>(null);
+    const [kimJongUn, setKimJongUn] = useState<any>(null);
+    const [iAmNatures, setIAmNatures] = useState<any>(null);
+    const [youGuysCanCallMeBen, setYouGuysCanCallMeBen] = useState<any>(null);
     useEffect(() => {
         setFuckUDunPlay(new Audio("/sounds/FuckUDunPlay.mp3"));
         setGiveMePoints(new Audio("/sounds/GiveMePoints.mp3"));
@@ -146,6 +149,9 @@ export default function Home() {
         setSorryXi(new Audio("/sounds/SorryXi.mp3"));
         setXiTea(new Audio("/sounds/XiTea.mp3"));
         setWoodenFish(new Audio("/sounds/WoodenFish.mp3"));
+        setKimJongUn(new Audio("/sounds/KimChungUn.mp3"));
+        setIAmNatures(new Audio("/sounds/IAmNatures.mp3"));
+        setYouGuysCanCallMeBen(new Audio("/sounds/YouGuysCanCallMeBen.mp3"));
     }, [])
 
 
@@ -161,17 +167,34 @@ export default function Home() {
                 });
                 const random = Math.random();
                 if (random < 0.3) {
+                    fuckUDunPlay.currentTime = 0
                     fuckUDunPlay.play();
                 } else if (random < 0.6) {
+                    giveMePoints.currentTime = 0
                     isAnAccident.play();
                 } else if (random < 0.9) {
+                    motherfucker.currentTime = 0
                     motherfucker.play();
                 } else {
+                    xiTea.currentTime = 0
                     xiTea.play();
                 }
                 break;
             case "SW CEO Henry":
+                woodenFish.currentTime = 0
                 woodenFish.play();
+                break;
+            case "HW Danny":
+                kimJongUn.currentTime = 0
+                kimJongUn.play();
+                break;
+            case "HW Nature":
+                iAmNatures.currentTime = 0
+                iAmNatures.play();
+                break;
+            case "HW Zoe":
+                youGuysCanCallMeBen.currentTime = 0
+                youGuysCanCallMeBen.play();
                 break;
         }
     }
