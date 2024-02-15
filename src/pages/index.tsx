@@ -129,19 +129,54 @@ export default function Home() {
     }, []);
 
 
+    const [fuckUDunPlay, setFuckUDunPlay] = useState<any>(null);
+    const [giveMePoints, setGiveMePoints] = useState<any>(null);
+    const [isAnAccident, setIsAnAccident] = useState<any>(null);
+    const [motherfucker, setMotherfucker] = useState<any>(null);
+    const [sorryXi, setSorryXi] = useState<any>(null);
+    const [xiTea, setXiTea] = useState<any>(null);
+    useEffect(() => {
+        setFuckUDunPlay(new Audio("/sounds/FuckUDunPlay.mp3"));
+        setGiveMePoints(new Audio("/sounds/GiveMePoints.mp3"));
+        setIsAnAccident(new Audio("/sounds/IsAnAccident.mp3"));
+        setMotherfucker(new Audio("/sounds/Motherfucker.mp3"));
+        setSorryXi(new Audio("/sounds/SorryXi.mp3"));
+        setXiTea(new Audio("/sounds/XiTea.mp3"));
+    }, [])
+
+
+    const triggerSound = () => {
+        const random = Math.random();
+        if (random < 0.05) {
+            fuckUDunPlay.play();
+        } else if (random < 0.1) {
+            giveMePoints.play();
+        } else if (random < 0.15) {
+            isAnAccident.play();
+        } else if (random < 0.2) {
+            motherfucker.play();
+        } else if (random < 0.25) {
+            sorryXi.play();
+        } else if (random < 0.3) {
+            xiTea.play();
+        }
+    }
+
+
     return (
-    <>
+    <Box onClick={triggerSound}>
         <Box sx={{
             position: "absolute",
             top: "0.5rem",
             left: "0.5rem",
             zIndex: "10",
+            textColor: "white"
         }}>
             <Flex>
                 <Spinner /><Text mt={"0.1rem"} ml={"0.5rem"}>{nextUpdate - currentUnixTime > 1000 ? "Next update in " + Math.floor((nextUpdate - currentUnixTime)/1000) + " seconds" : "Updating..."}</Text>
             </Flex>
         </Box>
-        <Box display="flex" justifyContent="center" bg="gray.400" h={windowHeight}>
+        <Box display="flex" justifyContent="center" backgroundImage={"/realmarco2004small.jpg"} h={windowHeight}>
                 <Box borderRadius="md" w="80%" maxWidth={"30rem"} h={"80%"} maxHeight={"70rem"} boxShadow="0 0 10px rgba(0, 0, 0, 0.2)" mt={"4rem"} pt={"1rem"} bg="white" overflow={"hidden"}>
                         <Image src="/labelstudio.png" h="12%" mx="auto" />
                         <Text fontSize={"xx-large"} textAlign={"center"}>Leaderboard</Text>
@@ -206,6 +241,6 @@ export default function Home() {
                         }
                 </Box>
         </Box>
-    </>
+    </Box>
     )
 }
