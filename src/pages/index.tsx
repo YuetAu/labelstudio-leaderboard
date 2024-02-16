@@ -52,9 +52,21 @@ export default function Home() {
             let nickname = undefined
             let tmpEmail = key
             const nameArr = key.split(" ");
-            if (nameArr.length == 2) {
-                tmpName = nameArr[0];
-                tmpEmail = nameArr[1];
+            if (nameArr.length >= 2) {
+                const nameIndex = nameArr.length - 1
+                tmpName = nameArr.slice(0, nameIndex).join(" ");
+                tmpEmail = nameArr[nameIndex];
+
+                if (tmpEmail.includes("@connect.ust.hk")) {
+                    const itsc = tmpEmail.split("@")[0];
+                    if (Object.keys(teamMember).includes(itsc)) {
+                        tmpName = teamMember[itsc as keyof typeof teamMember];
+                        if (Object.keys(customNickname).includes(itsc)) {
+                            nickname = customNickname[itsc as keyof typeof customNickname];
+                        }
+                    }
+                }
+
                 if (Object.keys(exceptionalCase).includes(nameArr[1])) {
                     tmpName = exceptionalCase[nameArr[1] as keyof typeof exceptionalCase];
                 }
