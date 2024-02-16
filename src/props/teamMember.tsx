@@ -2,6 +2,7 @@ export const customNickname = {
     "chlambp": "我代表MECH全體同事過來掛個名",
     "kckoae": "@realmarco.2004",
     "hwucp": "Shit Wire #1",
+    "hcloah": "Azealia",
 }
 
 export const teamMember = {
@@ -45,7 +46,8 @@ export const teamMember = {
     "sycheungat": "SW Yoyo",
     "cpchanah": "SW Starfall",
     "hmliaf": "SW Jerry",
-    "hchloi": "SW CEO Henry",
+    "hchloi": "OG Henry",
+    "hcloah": "OG Azalea",
 }
 
 export const exceptionalCase = {

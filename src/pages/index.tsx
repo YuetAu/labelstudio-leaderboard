@@ -180,7 +180,7 @@ export default function Home() {
                     xiTea.play();
                 }
                 break;
-            case "SW CEO Henry":
+            case "OG Henry":
                 woodenFish.currentTime = 0
                 woodenFish.play();
                 break;
