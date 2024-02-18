@@ -3,6 +3,7 @@ export const customNickname = {
     "kckoae": "@realmarco.2004",
     "hwucp": "Shit Wire #1",
     "hcloah": "Azealia",
+    "alexchan815@gmail.com": "OG SW God"
 }
 
 export const teamMember = {
@@ -53,7 +54,7 @@ export const teamMember = {
 export const exceptionalCase = {
     "tr246135@gmail.com": "SW Starfall",
     "sam07@live.hk": "HW Sam",
-    "alexchan815@gmail.com": "SW Chalex",
+    "alexchan815@gmail.com": "OG Chalex",
     "jerryhmli2015@gmail.com": "SW Jerry",
-    "namkoo71@gmail.com": "HW Nam",
+    "namkoo71@gmail.com": "OG Nam",
 }
