@@ -3,6 +3,7 @@ import { Box, Flex, Image, Spinner, Table, Tbody, Td, Text, Th, Thead, Tooltip, 
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import { customNickname, exceptionalCase, teamMember } from "@/props/teamMember";
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import Head from "next/head";
 
 type User = {
     username: string,
@@ -223,6 +224,9 @@ export default function Home() {
 
     return (
     <>
+        <Head>
+            <title>Label Studio - Leaderboard</title>
+        </Head>
         <Box sx={{
             position: "absolute",
             top: "0.5rem",
