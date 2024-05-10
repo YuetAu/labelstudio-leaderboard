@@ -236,7 +236,7 @@ export default function Home() {
         <Box display="flex" justifyContent="center" bg="gray.400" h={windowHeight}>
                 <Box borderRadius="md" w="80%" maxWidth={"30rem"} h={"80%"} maxHeight={"70rem"} boxShadow="0 0 10px rgba(0, 0, 0, 0.2)" mt={"4rem"} pt={"1rem"} bg="white" overflow={"hidden"}>
                         <Image src="/labelstudio.png" h="12%" mx="auto" />
-                        <Text fontSize={"xx-large"} textAlign={"center"}>Leaderboard</Text>
+                        <Text fontSize={"xx-large"} textAlign={"center"}>Season 2</Text>
                         
                         {
                             isGoingToFetch && data.length === 0
