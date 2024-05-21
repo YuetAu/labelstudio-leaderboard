@@ -152,8 +152,6 @@ export default function Home() {
     const [xiTea, setXiTea] = useState<any>(null);
     const [woodenFish, setWoodenFish] = useState<any>(null);
     const [kimJongUn, setKimJongUn] = useState<any>(null);
-    const [iAmNatures, setIAmNatures] = useState<any>(null);
-    const [youGuysCanCallMeBen, setYouGuysCanCallMeBen] = useState<any>(null);
     useEffect(() => {
         setFuckUDunPlay(new Audio("/sounds/FuckUDunPlay.mp3"));
         setGiveMePoints(new Audio("/sounds/GiveMePoints.mp3"));
@@ -163,8 +161,6 @@ export default function Home() {
         setXiTea(new Audio("/sounds/XiTea.mp3"));
         setWoodenFish(new Audio("/sounds/WoodenFish.mp3"));
         setKimJongUn(new Audio("/sounds/KimChungUn.mp3"));
-        setIAmNatures(new Audio("/sounds/IAmNatures.mp3"));
-        setYouGuysCanCallMeBen(new Audio("/sounds/YouGuysCanCallMeBen.mp3"));
     }, [])
 
 
@@ -200,14 +196,6 @@ export default function Home() {
             case "HW Danny":
                 kimJongUn.currentTime = 0
                 kimJongUn.play();
-                break;
-            case "HW Nature":
-                iAmNatures.currentTime = 0
-                iAmNatures.play();
-                break;
-            case "HW Zoe":
-                youGuysCanCallMeBen.currentTime = 0
-                youGuysCanCallMeBen.play();
                 break;
         }
     }

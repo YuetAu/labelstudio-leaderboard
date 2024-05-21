@@ -1,7 +1,6 @@
 export const customNickname = {
     "chlambp": "我代表MECH全體同事過來掛個名",
     "kckoae": "@realmarco.2004",
-    "hwucp": "Shit Wire #1",
     "hcloah": "Azealia",
     "alexchan815@gmail.com": "OG SW God"
 }
