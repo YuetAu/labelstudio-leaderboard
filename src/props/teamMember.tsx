@@ -56,4 +56,5 @@ export const exceptionalCase = {
     "alexchan815@gmail.com": "OG Chalex",
     "jerryhmli2015@gmail.com": "SW Jerry",
     "namkoo71@gmail.com": "OG Nam",
+    "tzlgdly@gmail.com": "SW Gary"
 }
